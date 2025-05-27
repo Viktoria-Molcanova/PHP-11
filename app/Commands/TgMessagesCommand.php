@@ -4,7 +4,7 @@ namespace App\Commands;
 
 use App\Application;
 use App\Telegram\TelegramApiImpl;
-
+use PHPUnit\Framework\TestCase;
 class TgMessagesCommand extends Command
 {
     protected Application $app;
@@ -19,4 +19,5 @@ class TgMessagesCommand extends Command
         $tgApi = new TelegramApiImpl($this->app->env('TELEGRAM_TOKEN'));
         echo json_encode($tgApi->getMessages(0));
     }
+
 }
