@@ -35,17 +35,15 @@ class HandleEventsCommand extends Command
 
         $events = $event->select();
 
-        $eventSender = new EventSender(new TelegramApiImpl($this->app->env('TELEGRAM_TOKEN')));
-        //die(var_dump(999));
+        $queue = new RabbitMQ ('eventSender');
+        $eventSender = new EventSender(new TelegramApiImpl($this->app->env( key: 'TELEGRAM_TOKEN')), $queue); //die (var_dump(999));
         foreach ($events as $event) {
-
-            if ($this->shouldEventBeRan($event)) {
-
-                $eventSender->sendMessage($event['receiver_id'], $event['text']);
-
-            }
-
+            if (true) {
+                $eventSender->sendMessage ($event['receiver_id'], $event['text']);
         }
+        }
+
+
 
     }
 
